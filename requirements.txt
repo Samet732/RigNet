@@ -1,0 +1,13 @@
+# Core Python dependencies (pure-Python / pip-installable)
+# Pin versions to be broadly compatible with modern Colab runtimes (Python 3.8-3.10/3.11).
+numpy>=1.21,<2.0
+scipy>=1.7
+matplotlib>=3.3
+tensorboard>=2.8
+opencv-python>=4.5
+trimesh[easy]>=3.9
+open3d>=0.14
+rtree>=0.8,<1.0
+# Note: torch and torch-geometric (pyg) are NOT pinned here because they require
+# special wheels matching the installed CUDA/PyTorch combination. See COLAB_SETUP.md
+# to install the correct versions on Colab or your local machine.

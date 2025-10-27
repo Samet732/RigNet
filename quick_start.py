@@ -8,14 +8,41 @@
 
 import os
 from sys import platform
-import trimesh
 import numpy as np
-import open3d as o3d
 import itertools as it
 
+# Optional heavy deps: try to import and give actionable error messages if missing.
+try:
+    import trimesh
+except Exception as e:
+    raise ImportError(
+        "Missing dependency 'trimesh'.\n" \
+        "On Colab, install with: `pip install trimesh[easy]`\n" \
+        "Or add it to requirements.txt and re-run pip install.`\n"
+    ) from e
+
+try:
+    import open3d as o3d
+except Exception as e:
+    raise ImportError(
+        "Missing dependency 'open3d'.\n" \
+        "On Colab, install with: `pip install open3d`\n" \
+        "Note: open3d wheels can be large; if you run into issues on Colab consider using a CPU runtime or skipping visualization steps.\n"
+    ) from e
+
 import torch
-from torch_geometric.data import Data
-from torch_geometric.utils import add_self_loops
+try:
+    from torch_geometric.data import Data
+    from torch_geometric.utils import add_self_loops
+except Exception as e:
+    raise ImportError(
+        "Missing 'torch_geometric' (PyTorch Geometric).\n" \
+        "PyG requires extra wheels that must match your torch and CUDA versions.\n" \
+        "See COLAB_SETUP.md for Colab installation instructions, or run:\n" \
+        "  # on Colab: first install a compatible torch, then:\n" \
+        "  pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-<TORCH_VERSION>+cuXXX.html\n" \
+        "  pip install torch-geometric\n"
+    ) from e
 
 from utils import binvox_rw
 from utils.rig_parser import Skel, Info
